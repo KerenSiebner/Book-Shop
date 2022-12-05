@@ -1,0 +1,129 @@
+body {
+    background-color: rgb(85, 140, 183);
+    color: whitesmoke;
+    overflow-x: hidden;
+    padding: 0 40px;
+    font-family: Quicksand;
+}
+
+h1 {
+    font-size: 50px;
+    margin-left: 50px;
+}
+
+button {
+    background-color: rgb(187, 187, 187);
+    color: rgb(37, 35, 35);
+    border: 0;
+    border-radius: .5em;
+    padding: 6px 10px;
+    margin: 2px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: rgba(153, 10, 86, 0.619);
+    color: whitesmoke;
+}
+
+
+.user-actions {
+    background-color: rgba(40, 61, 87, 0.153);
+    padding: 10px;
+    margin-left: 50px;
+    width: 70vw;
+}
+
+hr {
+    margin: 20px 19vw 0px 4vw;
+}
+
+
+.modal {
+    background-color: #111;
+    padding: 10px;
+    position: absolute;
+    top: 10vh;
+    left: 150%;
+    height: 85vh;
+    min-width: 400px;
+    text-align: center;
+}
+
+.modal.open {
+    left: 71%;
+    transition: left .5s;
+}
+
+.modal h3 {
+    color: pink;
+    text-decoration: overline;
+    text-transform: capitalize;
+}
+
+.modal h4 span {
+    color: pink;
+}
+
+.modal>p {
+    text-align: left;
+}
+
+
+.user-msg {
+    position: fixed;
+    bottom: -100px;
+    right: 10px;
+    background-color: #111;
+    padding: 10px;
+}
+
+.user-msg.open {
+    bottom: 10px;
+    transition: bottom .5s;
+}
+
+.book-img {
+    height: 60px;
+}
+
+.img-read {
+    height: 300px;
+}
+
+.books-table tr td {
+    border: 0px;
+    border-collapse: collapse;
+    padding: 20px;
+    background-color: rgba(156, 165, 175, 0.529);
+    color: rgb(32, 36, 65);
+    font-size: 1.1em;
+}
+
+
+th {
+    background-color: rgba(245, 245, 245, 0.407);
+    color: rgb(40, 61, 87);
+    border: 0px;
+    padding: 20px;
+    font-size: 20px;
+    /* border-collapse: collapse;   */
+}
+
+.books-container {
+    margin: 50px;
+}
+
+.add-book {
+    margin-left: 100px;
+}
+
+::placeholder {
+    font-family: Quicksand;
+}
+
+input {
+    width: 200px;
+}
