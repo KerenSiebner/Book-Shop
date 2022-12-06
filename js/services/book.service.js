@@ -105,14 +105,17 @@ function prevPage() {
     }
 }
 
-function Search(book){
-    gBooks
-    for (i = 0;i < gBooks.length; i++){
-        if ((gBooks[i].bookName.toLowerCase()).indexOf(book) > -1) {
-            gBooks[i].style.color = "yellow";
-            } else {
-                gBooks[i].style.color = "black";
-                }
-    }
+function onKeyUpSearch(){
+    setTimeout(() => {
+        const searchStr = document.querySelector('.searchBar').value
+        const filterBy = setBookFilter(searchStr)
+        console.log('filterBy', filterBy)
+        renderBooks()
+        document.querySelector('.searchBar').value = searchStr
+
+        const queryStringParams = `?bookName=${filterBy.bookName}`
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
+        window.history.pushState({ path: newUrl }, '', newUrl)
+    }, 1500);
 }
 

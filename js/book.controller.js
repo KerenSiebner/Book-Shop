@@ -2,8 +2,9 @@
 
 function onInit() {
     // renderVendors()
-    renderFilterByQueryStringParams()
     renderBooks()
+    doTrans()
+    renderFilterByQueryStringParams()
 }
 
 
@@ -86,12 +87,12 @@ function renderBooks() {
     <td>${book.price}</td>
     <td>${book.rate}</td>
     <td><img class="book-img"src="${book.imgUrl}" alt=""></td>
-    <td  value="${book.id}"><button class="read-btn" onclick="onReadBook('${book.id}')">Read</button ></td>
-    <td  value="${book.id}"><button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button></td>
-    <td  value="${book.id}"><button class="delete-btn" onclick="onDeleteBook('${book.id}')">Delete</button></td>
+    <td  value="${book.id}"><button class="read-btn" data-trans="read" onclick="onReadBook('${book.id}')">Read</button ></td>
+    <td  value="${book.id}"><button class="update-btn" data-trans="update" onclick="onUpdateBook('${book.id}')">Update</button></td>
+    <td  value="${book.id}"><button class="delete-btn" data-trans="delete" onclick="onDeleteBook('${book.id}')">Delete</button></td>
     </tr> `
     )
-    strHtmls.unshift([`<table class="books-table"><tbody><tr> <th>Id</th><th>Title</th><th>Price</th><th>Rate</th>  <th>Image</th> <th colspan="3">Actions</th></tr>`])
+    strHtmls.unshift([`<table class="books-table"><tbody><tr> <th data-trans="id">Id</th><th data-trans="title-book">Title</th><th data-trans="price">Price</th><th data-trans="rate">Rate</th>  <th data-trans="img">Image</th> <th colspan="3" data-trans="actions">Actions</th></tr>`])
     strHtmls.push([`</tbody> </table>`])
     document.querySelector('.books-container').innerHTML = strHtmls.join('')
 }
