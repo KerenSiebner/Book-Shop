@@ -48,7 +48,7 @@ var gTrans = {
     },
     update: {
         en: 'Update',
-        he: 'עדכן ספר',
+        he: 'עדכן מחיר',
     },
     delete: {
         en: 'Delete',
@@ -76,8 +76,54 @@ function setLanguage(langSelector) {
     const selectedLang = langSelector.dataset.lang
     console.log('selectedLang', selectedLang)
     gCurrLang = selectedLang
+    addLangURLParam()
+    
+    if (gCurrLang === 'he') {  
+        document.querySelector('.container').classList.add('rtl')
+        // document.querySelector('.form-check-input').classList.add('rtl')
+    }
+    else {
+        document.querySelector('.container').classList.remove('rtl')
+        // document.querySelector('.form-check-input').classList.remove('rtl')
+    }
     doTrans()
 }
+
+function addLangURLParam(){
+    const searchParams = new URLSearchParams(window.location.search)
+    console.log('searchParams', searchParams)
+    searchParams.set('language',gCurrLang)
+    const newRelativePathQuery = window.location.pathname+"?"+searchParams.toString()
+    history.pushState(null,"",newRelativePathQuery)
+    // const queryStringParams = `?language=${gCurrLang}`
+    // const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
+    // window.history.pushState({ path: newUrl }, '', newUrl)
+    
+}
+    
+
+
+
+// function renderFilterByQueryStringParams() {
+//     const queryStringParams = new URLSearchParams(window.location.search)
+//     const filterBy = {
+//         bookName : +queryStringParams.get('bookName') || '',
+//         maxPrice : +queryStringParams.get('maxPrice') || 50,
+//         minRate : +queryStringParams.get('minRate') || 0
+//     }
+
+//     if (!filterBy.maxPrice && !filterBy.minRate && !filterBy.bookName) return
+
+//     document.querySelector('.filter-price-range').value = filterBy.maxPrice
+//     document.querySelector('.filter-rate-range').value = filterBy.minRate
+//     setBookFilter(filterBy)
+//     // const queryStringParams = new URLSearchParams(window.location.search)
+//     // const filterBy = { bookName: queryStringParams.get('bookName') || '' }
+//     // if (!filterBy.bookName) return
+
+//     // setBooksFilter(filterBy)
+// }
+
 
 
 function getTrans(transKey) {

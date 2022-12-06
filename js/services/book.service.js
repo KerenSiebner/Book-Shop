@@ -11,7 +11,7 @@ const gBooksInfo = [
 ]
 
 var gBooks
-var gFilterBy = { maxPrice: 50, minRate: 0 }
+var gFilterBy = { bookName: '', }
 
 var gPageIdx = 0
 const PAGE_SIZE = 4
@@ -74,8 +74,9 @@ function getBookById(bookId) {
     return book
 }
 
-function setBookFilter(filterBy = {}) {
+function setBookFilter(filterBy={}) {
     gPageIdx = 0
+    if (filterBy.bookName !== undefined) gFilterBy.bookName = filterBy.bookName
     if (filterBy.maxPrice !== undefined) gFilterBy.maxPrice = filterBy.maxPrice
     if (filterBy.minRate !== undefined) gFilterBy.minRate = filterBy.minRate
     console.log('gFilterBy', gFilterBy)
@@ -83,8 +84,10 @@ function setBookFilter(filterBy = {}) {
 }
 
 function getBooks() {
-    var books = gBooks.filter(book => book.rate >= gFilterBy.minRate &&
-        book.price <= gFilterBy.maxPrice)
+    // var books = gBooks.filter(book => book.rate >= gFilterBy.minRate &&
+    //     book.price <= gFilterBy.maxPrice)
+    const books = gBooks.filter(book => book.bookName.includes(gFilterBy.bookName))
+
     // return books
 
     var startIdx = gPageIdx * PAGE_SIZE
@@ -105,17 +108,8 @@ function prevPage() {
     }
 }
 
-function onKeyUpSearch(){
-    setTimeout(() => {
-        const searchStr = document.querySelector('.searchBar').value
-        const filterBy = setBookFilter(searchStr)
-        console.log('filterBy', filterBy)
-        renderBooks()
-        document.querySelector('.searchBar').value = searchStr
-
-        const queryStringParams = `?bookName=${filterBy.bookName}`
-        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
-        window.history.pushState({ path: newUrl }, '', newUrl)
-    }, 1500);
+function setBooksFilter(filterBy) {
+    gFilterBy.bookName = filterBy
+    return gFilterBy
 }
 
