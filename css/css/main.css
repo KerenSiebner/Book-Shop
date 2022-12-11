@@ -59,7 +59,7 @@ button:hover {
     position: absolute;
     top: 10vh;
     left: 150%;
-    height: 80vh;
+    height: 50vw;
     width: 400px;
     text-align: center;
     display:block;
@@ -129,6 +129,9 @@ th {
     margin-bottom: 50px;
 }
 
+.add-book {
+    margin-left: 50px;
+}
 
 ::placeholder {
     font-family: Quicksand;
@@ -143,3 +146,6 @@ input {
     margin-bottom:50px;
 }
 
+.search-label{
+    margin-left:30px;
+}

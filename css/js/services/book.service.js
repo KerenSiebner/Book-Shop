@@ -14,17 +14,28 @@ var gBooks
 var gFilterBy = { bookName: '', }
 
 var gPageIdx = 0
-const PAGE_SIZE = 3
-
-var gIsSort
+const PAGE_SIZE = 4
 
 _createBooks()
+
+
 
 function addBook(bookName, price, imgUrl) {
     const book = _createBook(bookName, price, imgUrl = 'img/book-icon.png')
     gBooks.unshift(book)
     _saveBooksToStorage()
     return book
+}
+
+
+function _createBook(bookName, price, imgUrl) {
+    return {
+        id: makeId(),
+        bookName,
+        price,
+        imgUrl,
+        rate: 0
+    }
 }
 
 function updateBook(bookId, newPrice) {
@@ -40,16 +51,6 @@ function deleteBook(bookId) {
     _saveBooksToStorage()
 }
 
-function _createBook(bookName, price, imgUrl) {
-    return {
-        id: makeId(),
-        bookName,
-        price,
-        imgUrl,
-        rate: 0
-    }
-}
-
 function _createBooks() {
     var books = loadFromStorage(STORAGE_KEY)
     // Nothing in storage - generate demo data
@@ -63,8 +64,14 @@ function _createBooks() {
     _saveBooksToStorage()
 }
 
+
 function _saveBooksToStorage() {
     saveToStorage(STORAGE_KEY, gBooks)
+}
+
+function getBookById(bookId) {
+    const book = gBooks.find(book => book.id === bookId)
+    return book
 }
 
 function setBookFilter(filterBy={}) {
@@ -77,30 +84,20 @@ function setBookFilter(filterBy={}) {
 }
 
 function getBooks() {
-    console.log('gBooks',gBooks)
-    console.log('gFilterBy',gFilterBy)
+    // var books = gBooks.filter(book => book.rate >= gFilterBy.minRate &&
+    //     book.price <= gFilterBy.maxPrice)
+    const books = gBooks.filter(book => book.bookName.includes(gFilterBy.bookName))
 
-    var books = gBooks.filter(book => 
-        book.rate >= gFilterBy.minRate &&
-        book.price <= gFilterBy.maxPrice &&
-        book.bookName.toLowerCase().includes(gFilterBy.bookName)
-        )
-        console.log('books',books)
     // return books
 
-    const startIdx = gPageIdx * PAGE_SIZE
+    var startIdx = gPageIdx * PAGE_SIZE
     return books.slice(startIdx, startIdx + PAGE_SIZE) 
-}
-
-function getBookById(bookId) {
-    const book = gBooks.find(book => book.id === bookId)
-    return book
 }
 
 function nextPage() {
     gPageIdx++
     if (gPageIdx * PAGE_SIZE >= gBooks.length) {
-        gPageIdx = Math.ceil(gBooks.length / PAGE_SIZE) - 1
+        gPageIdx = 0
     }
 }
 
@@ -114,31 +111,5 @@ function prevPage() {
 function setBooksFilter(filterBy) {
     gFilterBy.bookName = filterBy
     return gFilterBy
-}
-
-function showRateValue(rateValue){
-    const elRate = document.querySelector('.rate-value')
-    elRate.innerHTML = rateValue
-}
-function showPriceValue(priceValue){
-    const elPrice = document.querySelector('.price-value')
-    elPrice.innerHTML = priceValue
-}
-
-function setSort(sortBy = {}) {
-    if (sortBy.price) {
-        gBooks.sort((c1, c2) => (c1.price - c2.price) * sortBy.price)
-        gIsSort = !gIsSort
-    } else if (sortBy.rate) {
-        gBooks.sort((c1, c2) => (c1.rate - c2.rate) * sortBy.rate)
-        gIsSort = !gIsSort
-    } else if (sortBy.name) {
-        gBooks.sort((c1, c2) => c1.bookName.localeCompare(c2.bookName) * sortBy.name)
-        gIsSort = !gIsSort
-    }
-}
-
-function isSorted(){
-    return gIsSort
 }
 

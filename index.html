@@ -12,19 +12,19 @@
     <title>Book Shop</title>
 </head>
 
-<body onload="onInit()" >
+<body onload="onInit()">
     <div class="container bg-info p-2" style="--bs-bg-opacity: .2;">
         <div class="lang-container container col align-self-start ">
             <div class="form-check">
-                <input class="form-check-input" data-lang="he" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                    onclick="setLanguage(this)">
+                <input class="form-check-input" data-lang="he" type="radio" name="flexRadioDefault"
+                    id="flexRadioDefault1" onclick="setLanguage(this)">
                 <label class="form-check-label" for="flexRadioDefault1">
                     Hebrew
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" data-lang="en" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                    onclick="setLanguage(this)" checked>
+                <input class="form-check-input" data-lang="en" type="radio" name="flexRadioDefault"
+                    id="flexRadioDefault2" onclick="setLanguage(this)" checked>
                 <label class="form-check-label" for="flexRadioDefault2">
                     English
                 </label>
@@ -39,32 +39,47 @@
             <br />
             <button onclick="onCloseModal()">Close</button>
         </div>
-<div class="col-12 align-items-center action-div">
 
-    <section class="user-actions">
+        <div class="col-12 align-items-center action-div">
+            <section class="user-actions">
+                <label>
+                    <span data-trans="max-price">Maximum Price:</span>
+                    <input type="range" min="0" max="200" value="200" class="filter-price-range"
+                        onchange="this.title=this.value; showPriceValue(this.value); onSetFilterBy({maxPrice: this.value})" />
+                        <span class="price-value"></span>
+                </label>
+                <br>
+                <label>
+                    <span data-trans="min-rate">Minimum Rate:</span>
+                    <input type="range" min="0" max="10" value="0" class="filter-rate-range"
+                        onchange="this.title=this.value; showRateValue(this.value) ; onSetFilterBy({minRate: this.value})" />
+                    <span class="rate-value"></span>
+                </label>
+                <br>
+                <label class="search-label" for="search" data-trans="search-book">Search a book</label>
+                <input class="search-Input" type="text" onkeyup="onKeyUpSearch()" placeHolder="Search book...">
+                <br>
+                <button class="add-book" data-trans="add" title="Add book" onclick="onAddBook()">Create new
+                    book</button>
 
-        <h2></h2>
-        <label>
-            <span data-trans="max-price">Maximum Price:</span>
-            <input type="range" min="0" max="50" value="8" class="filter-price-range"
-                onchange="this.title=this.value; onSetFilterBy({maxPrice: this.value})" />
-        </label>
-        <label>
-            <span data-trans="min-rate">Minimum Rate:</span>
-            <input type="range" min="0" max="10" value="8" class="filter-rate-range"
-                onchange="this.title=this.value; onSetFilterBy({minRate: this.value})" />
-        </label>
-        <label class = "search-label" for="search">Search a book</label>
-        <input class="search-Input" type="text" onkeyup="onKeyUpSearch()" placeHolder="Search book...">
-        <button class="add-book" data-trans="add" title="Add book" onclick="onAddBook()">Create new book</button>
-
-    </section>
-</div>
+            </section>
+        </div>
         <hr />
-        <section class="container col-12 books-container"></section>
+        <section class="container col-12 ">
+            <table class="books-table col-12">
+                <thead><tr>
+                <th data-trans="id">Id</th>
+                <th data-trans="title-book" onclick="onSetSortBy('name')">Title</th>
+                <th data-trans="price" onclick="onSetSortBy('price')">Price</th>
+                <th data-trans="rate" onclick="onSetSortBy('rate')">Rate</th>  
+                <th data-trans="img">Image</th> 
+                <th colspan="3" data-trans="actions">Actions</th>
+                </tr></thead>
+                <tbody class="books-container"></tbody>
+        </section>
         <div class="page">
-            <button class="next" data-trans="next-page" onclick="onPrevPage()">Previous Page</button>
-            <button class = "prev" data-trans="prev-page" onclick="onNextPage()">Next Page</button>
+            <button class="prev" data-trans="prev-page" onclick="onPrevPage()">Previous Page</button>
+            <button class="next" data-trans="next-page" onclick="onNextPage()">Next Page</button>
         </div>
     </div>
     <!-- <script src="js/jquery-3.6.1.js"></script> -->

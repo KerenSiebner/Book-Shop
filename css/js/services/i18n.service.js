@@ -30,10 +30,6 @@ var gTrans = {
         he: 'פעולות'
     },
 
-    'search-book': {
-        en: 'Search a book',
-        he: 'חיפוש ספר',
-    },
     'next-page': {
         en: 'Next Page',
         he: 'עמוד הבא',
@@ -67,8 +63,17 @@ var gTrans = {
         en: 'Minimum Rate:',
         he: 'דירוג מינימלי',
     },
+    'book-price':{
+        en: 'Book price',
+        he: 'מחיר ספר'
+    },
+    close:{
+        en: 'Close',
+        he: 'סגור'
+    }
 
 }
+
 function setLanguage(langSelector) {
     const selectedLang = langSelector.dataset.lang
     console.log('selectedLang', selectedLang)
@@ -77,9 +82,11 @@ function setLanguage(langSelector) {
     
     if (gCurrLang === 'he') {  
         document.querySelector('.container').classList.add('rtl')
+        // document.querySelector('.form-check-input').classList.add('rtl')
     }
     else {
         document.querySelector('.container').classList.remove('rtl')
+        // document.querySelector('.form-check-input').classList.remove('rtl')
     }
     doTrans()
 }
@@ -90,10 +97,12 @@ function addLangURLParam(){
     searchParams.set('language',gCurrLang)
     const newRelativePathQuery = window.location.pathname+"?"+searchParams.toString()
     history.pushState(null,"",newRelativePathQuery)
+    // const queryStringParams = `?language=${gCurrLang}`
+    // const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
+    // window.history.pushState({ path: newUrl }, '', newUrl)
+    
 }
     
-
-
 function getTrans(transKey) {
     // done: if key is unknown return 'UNKNOWN'
     const key = gTrans[transKey]
@@ -110,6 +119,7 @@ function getTrans(transKey) {
 
 function doTrans() {
     // done: 
+    // var els = document.querySelectorAll('[data-trans]'
     // for each el:
     //    get the data-trans and use getTrans to replace the innerText 
     var els = document.querySelectorAll('[data-trans]')
@@ -127,5 +137,4 @@ function doTrans() {
 function setLang(lang) {
     gCurrLang = lang
 }
-
 
